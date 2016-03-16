@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+#img { position:relative; top:3px; }
+#img div { width:100px; height:100px; position:absolute; transition:0.3s; cursor:pointer; }
+#img div:hover { transform:scale(0.84); }
+#list { position:absolute; top:10px; left:620px; width:700px; margin:0; padding:0; }
+#list li { width:100px; height:100px; list-style:none; float:left; margin:1px; }
+</style>
+</head>
+<body>
+<div id="img"></div>
+<ul id="list"></ul>
+<script>
+window.onload = function()
+{
+	var oImg = document.getElementById('img');
+	var oUl = document.getElementById('list');
+	var left,top,bgpoX,bgpoY;
+	for( var i = 0 ; i<6 ; i++)//对行进行循环
+	{ 
+	  	top = i * 100 + 'px';//每一行的top值
+	  	bgpoY = i*100 +'px'; //div背景图片的Y轴位置
+	    for(var j=0 ; j<6 ; j++)//对列进行循环
+		{
+		 	left = j*100 + 'px';//每一列的left值
+		    bgpoX = j*100 + 'px';//div背景图片的X轴位置
+		    oImg.innerHTML += '<div style="left:'+left+';top:'+top+'; background:url(img/bg11.jpg) -'+bgpoX+' -'+bgpoY+';">' + '</div>';//给oImg里面添加div
+        }
+	}
+	var oDiv = oImg.getElementsByTagName('div');
+	var len = oDiv.length;
+	for( var z = 0 ; z<len ; z++ )
+	{
+		oDiv[z].index = 1 ;
+		oDiv[z].onclick = function() //如何根据Li的索引值给背景图片的位置进行设置
+		{
+			if(this.index == 1)//要判断每一个当前的div使其只能点击1次
+			{
+				this.style.opacity = "0.8";
+			    this.style.transform = "scale(0.98)";
+				oUl.innerHTML += '<li>' + '</li>';
+				var oLi = oUl.getElementsByTagName('li');
+				var last = oLi.length - 1; //因为长度是从0开始计算的故而减一
+	            oLi[last].style.background=this.style.background; //把当前div的背景赋给oli最后一个的背景
+                this.index = 0 ;
+	        }
+        }
+	}
+}
+
+</script>
+
+</body>
+</html>
